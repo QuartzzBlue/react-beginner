@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 멀티 Element 생성하기 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+
+        // const rootDiv= <React.Fragment className="wrapper" children={[<h1>Hi</h1>, <h3>Bye</h3>, <h5>Children</h5>]}/>
+
+        const h1El = <h1>Hi</h1>;
+        const h3El = <h3>Bye</h3>;
+        const h5El = <h5>Children</h5>;
+        // const rootDiv= <React.Fragment className="wrapper" children={[h1El, h3El, h5El]}/> //Vue의 template과 비슷..?한가?
+        
+        const rootDiv = ( <>
+            <h1>Hi</h1>
+            <h3>Bye</h3>
+            <h5>Children</h5>
+            </> 
+        ) ;
+        console.log(rootDiv);
+
+        ReactDOM.render(rootDiv, rootElement);
+    </script>
+
+</html>
