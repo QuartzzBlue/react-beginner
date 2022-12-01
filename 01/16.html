@@ -19,46 +19,45 @@
         // DOM : 논리 트리 / 컴포넌트 : 엘리먼트의 집합 / 엘리먼트 : 요소
         const rootElement = document.getElementById('root');
 
-        // 반복 작업을 커스텀 훅으로 변경
-        function useLocalStorage(itemName, defaultValue = "") {
-            const [state, setState] = React.useState(() =>{
-                return window.localStorage.getItem(itemName) || defaultValue;
+        const App = () => {
+            console.log("APP render start");
+            const [showInput, setShowInput] = React.useState(() => {
+                console.log("APP useState")
+                return false;
             });
 
-            React.useEffect(() => {
-                window.localStorage.setItem(itemName, state);
-            }, [state]);
+            React.useEffect(()=>{
 
-            return [state, setState];
-        }
+            });
+            React.useEffect(()=>{
 
-        const App = () => {
+            }, []);
+            React.useEffect(()=>{
 
-            const [keyword, setKeyword] = useLocalStorage("keyword");
-            const [result, setResult] = useLocalStorage("result");
-            const [typing, setTyping] = useLocalStorage("typing", false);
-            
+            }, [show]);
 
-            function handleChange(event) { 
-                setKeyword(event.target.value);
-                setTyping(true);
-            }
 
             function handleClick() {
-                setResult(`we find results of ${keyword}`);
-                setTyping(false);
+                //이전 값이 인자로 자동으로 들어옴
+                setShowInput((prev) => !prev);
             }
 
             return (
                 <>
-                    <input onChange={handleChange} value={keyword}/>
-                    <button onClick={handleClick}>search</button>
-                    <p>{typing ? `Looking for ... ${keyword}` : result}</p>
+                    <button onClick={handleClick}>Search</button>
+                    {showInput ? (
+                            <>
+                                <input/>
+                                <p></p>
+                            </>
+                        ) : null
+                    }
                 </>
             )
         }
 
         ReactDOM.render(<App />, rootElement)
+        console.log("APP render end");
     </script>
 
 </html>
