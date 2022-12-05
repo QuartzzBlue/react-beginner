@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- 커스텀 훅 만들기 -->
+    <!-- HOOK FLOW 이해하기_1 -->
     <!-- 여기서의 "사이드 이펙트" 는 부작용보다는 '부수적인 효과'에 가까우며, 이벤트 발생 시 다른 곳으로 전파하기 위한 도구-->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,24 +20,32 @@
         const rootElement = document.getElementById('root');
 
         const App = () => {
+            // 화면을 띄워보면, 콘솔 로그 상 App render가 끝난 다음에 effect가 발생
+            // 사이드 이펙트이기 때문에 화면이 먼저 다 그려지고 난 다음에 이펙트 발생
             console.log("APP render start");
             const [showInput, setShowInput] = React.useState(() => {
                 console.log("APP useState")
                 return false;
             });
 
+            // 선언 순서에 따라 순차적으로 실행됨을 알 수 있음
             React.useEffect(()=>{
-
-            });
-            React.useEffect(()=>{
-
+                console.log("APP useEffect, empty dependencys")
             }, []);
             React.useEffect(()=>{
-
-            }, [show]);
+                console.log("APP useEffect, no dependencys")
+            });
+            // React.useEffect(()=>{
+            //     console.log("APP useEffect, empty dependencys")
+            // }, []);
+            React.useEffect(()=>{
+                console.log("APP useEffect, [showInput]")
+            }, [showInput]);
 
 
             function handleClick() {
+
+                //useState의 'setState' 시, prev가 자동 주입됨!
                 //이전 값이 인자로 자동으로 들어옴
                 setShowInput((prev) => !prev);
             }
