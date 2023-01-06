@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- form 다루기 2 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const rootElement = document.getElementById('root');
+       
+        const App = () => {
+            const [validFlag, setValidFlag] = React.useState(true);
+            const [message, setMessage] = React.useState("");
+            const [phonenum, setPhonenum] = React.useState("");
+
+            const guide = React.useRef();
+
+            const checkValidation = (event) => {
+                console.log(event.target.value);
+                if(event.target.value.startsWith('0')) {
+                    setValidFlag(true);
+                    setPhonenum(event.target.value);
+                    setMessage("");
+                } else if (!event.target.value.startsWith('0')) {
+                    setValidFlag(false);
+                    setPhonenum("");
+                    setMessage("Phone Number should starts with 0");
+                }
+                //이걸 제일 마지막에 하는 이유는, setState에 시간이 다소 소요되기 때문에 조건문에서 오류 있을 수 있어서
+                // setPhonenum(event.target.value);
+            };
+
+            React.useEffect(() => {
+                if(message == "") {
+                    guide.current.style.display = "none";
+                } else {
+                    guide.current.style.display = "inline-block";
+                }
+            }, [message])
+
+            const handleSubmit = (event) => {
+                event.preventDefault(); //이 이벤트의 기본적인 동작 제한 (새로고침하지 않도록)
+                const phone = event.target.elements.phonenum.value;
+                console.dir(phone);
+            }
+
+            return (
+                <>
+                    <form onSubmit={handleSubmit}>
+                        <labal htmlFor="phonenum">Phone Number:</labal><br />
+                        {
+                            //아래 input의 경우 controlled conponent로, value를 사용자가 업데이트하는 게 아니라 
+                            // * controlled conponent : 입력 폼의 Value를 직접 리액트 컴포넌트에서 관리하는 것
+                            // * 
+                        }
+                        <input type="text" id="phonenum" name="phonenum" onChange={checkValidation} value={phonenum}/><br />
+                        <p ref={guide} style ={{display: "none", color: "red"}}>{message}</p>
+                        <br />
+                       {/* <labal htmlFor="cars">Choose a car:</labal><br />
+                        <select id="cars" name="cars">
+                            <option defaultValue="volve">Volvo</option>
+                            <option defaultValue="kia">Kia</option>
+                            <option defaultValue="audi">Audi</option>
+                        </select> */}
+                        
+                        <button type="submit" id="submit" disabled={!validFlag}>Submit</button>
+                    </form>    
+                </>
+            )
+        }
+
+        ReactDOM.render(<App />, rootElement)
+        
+    </script>
+
+</html>
