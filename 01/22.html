@@ -57,9 +57,11 @@
                     <form onSubmit={handleSubmit}>
                         <labal htmlFor="phonenum">Phone Number:</labal><br />
                         {
-                            //아래 input의 경우 controlled conponent로, value를 사용자가 업데이트하는 게 아니라 
-                            // * controlled conponent : 입력 폼의 Value를 직접 리액트 컴포넌트에서 관리하는 것
-                            // * 
+                            // 아래 input의 경우 controlled conponent로, 엘리먼트의 '상태'를 리액트 State로 관리한다!
+                            // 이 설명이 약간 혼란스러웠는데, 아래 글을 보고 좀 더 자세하게 이해하게 됨
+                            // https://mygumi.tistory.com/419
+                            // * controlled component : 폼 엘리먼트 (input, textarea, select 등)의 state를 리액트 컴포넌트에서 관리하는 것
+                            // * uncontrolled component : 폼 엘리먼트 (input, textarea, select 등)의 state를 DOM(HTML)에서 관리하는 것
                         }
                         <input type="text" id="phonenum" name="phonenum" onChange={checkValidation} value={phonenum}/><br />
                         <p ref={guide} style ={{display: "none", color: "red"}}>{message}</p>
