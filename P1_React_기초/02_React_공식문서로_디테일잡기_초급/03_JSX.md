@@ -1,8 +1,8 @@
-# React 환경 설정    
+# JSX   
 
 ## 1. VS CODE 설치
 
-[VSCODE 설치](https://code.visualstudio.com/)
+[JSX - 리액트 공식 문서](https://ko.reactjs.org/docs/introducing-jsx.html)
 <br />
 <br />
 
@@ -27,6 +27,3 @@
 -> 나의 경우 'playground'라고 네이밍해서 생성해 봄!
 
 <br /><br />
-### 리액트 공식 문서
-
-[새로운 React 앱 만들기 - 리액트 공식문서](https://ko.reactjs.org/docs/create-a-new-react-app.html)
