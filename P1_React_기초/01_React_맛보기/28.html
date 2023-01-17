@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 데이터 Fetch 해보기 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const rootElement = document.getElementById('root');
+        
+        const App = () => {
+            const [data, setData] = React.useState(null);
+            const [error, setError] = React.useState(null);
+
+            React.useEffect(() => {
+                fetch("https://raw.githubusercontent.com/techoi/raw-data-api/main/simple-api.json")
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (myJson) {
+                        setData(myJson.data);
+                        console.log(myJson);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        setError(err.message)
+                        // alert(err);
+                    });
+            }, [])
+
+            // 에러
+            if(error != null) {
+                return <p>{error}</p>
+            }
+
+            // 로딩
+            if(data == null) {
+                return <p style ={{color: "red"}}>Loading....</p>;
+            }
+
+            return (
+                <>
+                    <div>
+                        <p>People</p>
+                        {data.people.map((person, idx) => 
+                            <div key={idx}>
+                                <span>name : {person.name}</span> <br />
+                                <span>age : {person.age}</span>
+                            </div>
+                        )}
+                    </div>
+                </>
+            )
+        }
+       
+
+
+        ReactDOM.render(<App />, rootElement)
+        
+    </script>
+
+</html>

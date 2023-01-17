@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Error 다루기 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const rootElement = document.getElementById('root');
+       
+        const App = () => {
+            
+            // 에러 처리를 담당하는 getDerivedStateFromError 함수를 Class 컴포넌트에서만 제공!
+            class ErrorBoundary extends React.Component {
+                state = { error: null };
+
+                static getDerivedStateFromError(error) {
+                    return { error };
+                }
+
+                render() {
+                    const { error } = this.state;
+                    if (error) {
+                        return < this.props.fallback error={error} />;
+                    } else {
+                        return this.props.children;
+                    }
+                }
+            }
+
+            const Fallback = ({ error }) => {
+                alert(error.message);
+                return <p> THERE IS SOME ERROR....🐤</p>;
+            }
+
+            const Child = () => {
+                throw new Error("Something wrong....");
+                return <p>Child....</p>
+            }
+
+            return (
+                <>
+                    <p>App</p>
+                    {/* 
+                        이 트리 하위에 존재하는 컴포넌트의 에러만을 포착!
+                        이 'Error Boundary'를 사용하지 않는 경우에는, UI 렌더링에서 자바스크립트 에러가 발생하는 경우 전체 애플리케이션에 영향 미침!
+                        https://ko.reactjs.org/docs/error-boundaries.html
+                    */}
+                    <ErrorBoundary fallback={Fallback}>
+                        <Child/>       
+                    </ErrorBoundary>
+                </>
+            );
+        }
+
+        ReactDOM.render(<App />, rootElement)
+        
+    </script>
+
+</html>

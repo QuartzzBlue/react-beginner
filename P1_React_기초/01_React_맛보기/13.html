@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 컴포넌트 상태값 다루기 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <script type="text/babel">
+        // DOM : 논리 트리 / 컴포넌트 : 엘리먼트의 집합 / 엘리먼트 : 요소
+        const rootElement = document.getElementById('root');
+
+
+        const App = () => {
+            // React가 제공하는 상태값 관리 훅 "React.useState()"
+            /*
+                const keywordState = React.useState("");
+                const keyword = keywordState[0]; //상태 값 (state)
+                const setKeyword = keywordState[1]; //상태 값 setter
+            */
+            const [keyword, setKeyword] = React.useState("");
+            const [result, setResult] = React.useState("");
+            const [typing, setTyping] = React.useState(false);
+            
+            function handleChange(event) { 
+                setKeyword(event.target.value);
+                setTyping(true);
+            }
+
+            function handleClick() {
+                setResult(keyword);
+                setTyping(false);
+            }
+
+            return (
+                <>
+                    <input onChange={handleChange} />
+                    <button onClick={handleClick}>search</button>
+                    <p>{typing ? `Looking for ... ${keyword}` : result}</p>
+                </>
+            )
+        }
+        ReactDOM.render(<App />, rootElement)
+    </script>
+
+</html>

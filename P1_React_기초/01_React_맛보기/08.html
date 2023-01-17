@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 리액트의 리렌더링_02 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+        /** 바닐라 JS */
+        // 얘는 <button>의 number가 바뀔 때, 그 부모 Element인 <div>까지 변경됨
+        // 따라서 포커스 등의 property등도 초기화됨
+        // function random() {
+        //     const number = Math.floor(Math.random() * (10 - 1) + 1);
+        //     const element= `<button>${number}</button>`;
+        //     rootElement.innerHTML=element;
+        // }
+        
+        // setInterval(random, 1000);
+        
+
+        /** React */
+        // 얘는 <button>의 number가 바뀔 때, 딱 본인의 Element만 변경됨 (값만 변경)
+        // 따라서 포커스 등의 property등도 초기화되지 않고 유지됨
+        function random() {
+            const number = Math.floor(Math.random() * (10 - 1) + 1);
+            const element= <>
+                <button>{number}</button>
+                <div><p>{number}</p></div>
+            </>;
+            ReactDOM.render(element, rootElement)
+        }
+        setInterval(random, 1000);
+
+        /** 둘 중 어느 거가 더 좋은 게 아니라, 둘의 성질을 잘 알고 적시적소에 쓰는 게 중요! */
+
+    </script>
+
+</html>

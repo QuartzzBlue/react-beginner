@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Element 찍어내기 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const rootElement = document.getElementById("root");
+
+        // const paint = () => {
+        //     <>
+        //         <h1>Hi</h1>
+        //         <h3>Bye</h3>
+        //     </>
+        // };
+
+        // const element = ( 
+        //     <>
+        //         { paint() }
+        //         { paint() }
+        //     </>
+        // );
+
+        
+        const paint = (title, description) => {
+            return ( <>
+                <h1>{title}</h1>
+                <h3>{description}</h3>
+            </> )
+        };
+
+        // 커스텀 엘리먼트
+        const Paint = ({title, description, children}) => {
+            return (
+                <>
+                    <h1>{title}</h1>
+                    <h3>{description}</h3>
+                    {children}
+                </>
+            )
+        };
+
+        const Good = () => {
+            return (
+                <span><br/>Good</span>
+            )
+        };
+
+        const elementN = ( 
+            <>
+                <Paint title="Bad" description="bad">
+                  <em>My mood is</em>
+                  <Good />
+                  <Good />
+                  <Good />
+                </Paint>
+                { paint("Good", "good") }
+                { paint("So So", "soso") }
+            </>
+        );
+
+        console.log(elementN);
+
+        ReactDOM.render(elementN, rootElement);
+
+    </script>
+
+</html>
