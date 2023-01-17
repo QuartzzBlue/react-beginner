@@ -1,23 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+// import Composition from './components/1-2_4.Props/Composition/Composition';
+// import Extraction from './components/1-2_4.Props/Extraction/Extraction';
+// import ClassComponent from './components/1-2_5.State/ClassComponent';
+// import FunctionalComponent from './components/1-2_5.State/FunctionalComponent';
+import ClassComponent2 from './components/1-2_6.Lifecycle/ClassComponent';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* 1-2_4.Props
+        <Composition />
+        <Extraction /> 
+      */}
+
+      {/* 1-2_5.State
+        <FunctionalComponent />
+        <ClassComponent /> 
+      */}
+
+      <ClassComponent2 />
     </div>
   );
 }
